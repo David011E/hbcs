@@ -6,3 +6,6 @@ class Image(models.Model):
     featured_image = CloudinaryField('image', default='placeholder')
     description = models.CharField(max_length=200, blank=True, null=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.featured_image}"
