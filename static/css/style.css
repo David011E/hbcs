@@ -2,6 +2,71 @@ body {
     background-color: #F9FAFC;
 }
 
+h6 {     
+    text-align: center;     
+    font-size: medium; 
+}
+
+.row.row-1 {
+    margin-top: 100px;
+}
+
+.home-h {
+    margin-top: 10px;
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px; /* Set a maximum width for screens larger than 992px */
+    }
+
+    .col-md-3 {
+        margin-top: -30px;
+    }
+
+    .h6 {
+        margin-top: 10px;
+    }
+
+    .row {
+        margin-top: 20px;
+    }
+}
+
+
+.card-img-top, img {
+    width: 100%; /* Set the width to 100% of the parent container */
+    height: auto; /* Automatically adjust the height to maintain aspect ratio */
+    display: block; /* Remove any default inline display */
+    margin: 0 auto; /* Center the images within their parent container */
+}
+
+@media (max-width: 767px) {
+    .container {
+        max-width: 100%; /* Full-width container for smaller screens */
+    }
+
+    .row {
+        margin-top: 45px;
+    }
+
+    .card-img-top, img {
+        /* You can adjust the width and margins for smaller screens */
+        width: 75%;
+        height: 90%; /* Adjust the height as needed */
+        margin: 0 auto;
+    }
+
+    .col-md-3.top-im{
+        margin-top: -30px;
+    }
+    
+    .row.row-1 {
+        margin-top: 45px; /* Adjust the margin for row-1 */
+        min-height: 100px; /* Set a minimum height for the row */
+    }
+}
+
 .brand {
     font-family: Lato, sans-serif;
     font-size: 1.4rem;
