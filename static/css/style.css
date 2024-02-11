@@ -29,7 +29,7 @@ h6 {
     }
 
     .row {
-        margin-top: 20px;
+        margin-top: 40px;
     }
 }
 
@@ -65,7 +65,49 @@ h6 {
         margin-top: 45px; /* Adjust the margin for row-1 */
         min-height: 100px; /* Set a minimum height for the row */
     }
+
+    .col-md-7 {
+        display: grid;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .col-md-7 > h3 {
+        justify-self: center;
+    }
+
+    .row.featurette { 
+        margin-top: -10px;
+    }
+
+    .featurette-image {
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .container.container-fluid.content-main-container {
+        padding: 20px; /* Add padding to create space around the content */
+    }
+
+    .col-md-7 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .col-md-7 h3 {
+        margin-top: 10px;
+    }
+
+    .featurette-divider {
+        margin: 20px 0;
+    }
 }
+
+
+
 
 .brand {
     font-family: Lato, sans-serif;
@@ -159,4 +201,13 @@ h6 {
 
 .approval {
     color: rgb(222, 146, 168);
+}
+
+.featurette-image {
+   height: 100%;
+}
+
+.featurette-divider {
+    border-top: 3px solid #333; /* Change the color to your preferred color */
+    margin: 20px 0; /* Adjust the margin for spacing */
 }

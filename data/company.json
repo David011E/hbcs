@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Michael",
+        "image": "/static/images/styler4.jpg",
+        "Description": "The best part of being a barber is the ever changing styles, methods & techniques that constantly evolve.  Michael embraces it all, staying up to date through constant training and watching the latest trends develop and grow.  Following a traditional style of barbering with a modern twist, he embraces the styles that are making a comeback. "
+    },
+    {
+        "name": "Dani",
+        "image": "/static/images/styler5.jpg",
+        "Description": "Dani joined the team in 2022 and has been popular with our clients.  Amazing with a set of clippers Dani enjoys modern styles and loves the opportunity to add a bit of colour too!Although she enjoys modern styles that doesn't mean she can't turn her scissors to amore traditional cut."
+    },
+    {
+        "name": "Simon",
+        "image": "/static/images/styler6.jpg",
+        "Description": "Simon is a top class barber with experience working in some of the top barber shops in London.  He has a passion for the industry that shines through in his work. He is the perfect fit for our shop, combining traditional with modern styles.  "
+    }
+]
