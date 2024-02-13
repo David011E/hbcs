@@ -13,29 +13,29 @@
                 {# if loop is divisible by 2 (even index) #}
                 {% if forloop.counter|divisibleby:2 %}
 
-                    <div class="col-md-5">
-                        <img src="{{ member.image }}" alt="member pics" class="featurette-image image-responsive">
-                    </div>
+                <div class="col-md-5">
+                    <img src="{{ member.image }}" alt="member pics" class="featurette-image image-responsive">
+                </div>
 
-                    <div class="col-md-7">
-                        <h4>{{ member.name }}</h4>
-                        <p>
-                            {{ member.Description }}
-                        </p>
-                    </div>
+                <div class="col-md-7">
+                    <h4>{{ member.name }}</h4>
+                    <p>
+                        {{ member.Description }}
+                    </p>
+                </div>
 
                 {% else %}
 
-                    <div class="col-md-7">
-                        <h4>{{ member.name }}</h4>
-                        <p>
-                            {{ member.Description }}
-                        </p>
-                    </div>
+                <div class="col-md-7">
+                    <h4>{{ member.name }}</h4>
+                    <p>
+                        {{ member.Description }}
+                    </p>
+                </div>
 
-                    <div class="col-md-5">
-                        <img src="{{ member.image }}" alt="member pics" class="featurette-image image-responsive">
-                    </div>
+                <div class="col-md-5">
+                    <img src="{{ member.image }}" alt="member pics" class="featurette-image image-responsive">
+                </div>
 
                 {% endif %}
 
@@ -43,16 +43,58 @@
         </div>
 
         {% if not forloop.last %}
-            <hr class="featurette-divider">
+        <hr class="featurette-divider">
         {% endif %}
 
     </div>
 
-{% endfor %}
+    {% endfor %}
 
+    <!-- Displaying Comments -->
+    <div class="row">
+        <!-- Displaying count of reviews -->
+        <div class="row">
+            <div class="col-12">
+                <strong class="text-secondary">
+                    <i class="far fa-comments"></i> All Reviews {{ review_count }}
+                </strong>
+            </div>
         </div>
+        <div class="col-md-8 card mb-4 mt-3">
+            <h3>REVIEWS</h3>
+            <div class="card-body">
+                <!-- We want a for loop inside the empty control tags
+                to iterate through each review in reviews -->
+                {% for review in reviews %}
+                <div class="p-2 comments
+                {% if review.author == user %}
+                    faded
+                {% endif %}">
+                    <p class="font-weight-bold">
+                        By {{ review.author }}
+                        <span class="font-weight-normal">
+                            {{ review.created_on }}
+                        </span> wrote:
+                    </p>
+                    <div id="comment{{ review.id }}">
+                        {{ review.content | safe }}
+                    </div>
+                    {% if review.author == user %}
+                    {% endif %}
+                    {% if not forloop.last %}
+                    <hr class="featurette-divider">
+                    {% endif %}
+                </div>
+                <!-- Our for loop ends here -->
+                {% endfor %}
+                {% if not forloop.last %}
+                <hr class="featurette-divider">
+                {% endif %}
+            </div>
+        </div>
+    </div>
 
-        
+
 </body>
 
 {% endblock content %}
