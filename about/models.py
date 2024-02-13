@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.safestring import mark_safe
+from django.utils.html import strip_tags
 
 class Reviews(models.Model):
     title = models.CharField(max_length=200, unique=True)
@@ -11,5 +13,13 @@ class Reviews(models.Model):
     class Meta:
         ordering = ["created_on"]
 
+    def safe_content(self):
+        return mark_safe(self.content)
+
+    safe_content.short_description = 'Content'
+
+    def clean_content(self):
+        return strip_tags(self.content)
+
     def __str__(self):
-        return f"{self.content} | by {self.author}"
+        return f"{self.clean_content()} | by {self.author}"
