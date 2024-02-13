@@ -8,6 +8,8 @@ class PostAdmin(SummernoteModelAdmin):
     list_display = ('title', 'author', 'safe_content', 'created_on')
     search_fields = ['title', 'author']
     list_filter = ('created_on', 'author')
+    summernote_fields = ['content']
+    
 
     def safe_content(self, obj):
         return mark_safe(obj.content)
