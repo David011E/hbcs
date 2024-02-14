@@ -4,7 +4,6 @@ from django.utils.safestring import mark_safe
 from django.utils.html import strip_tags
 
 class Reviews(models.Model):
-    title = models.CharField(max_length=200, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviewer")
     content = models.CharField(max_length=200)
     created_on = models.DateTimeField(auto_now=True)

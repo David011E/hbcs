@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
 
 <body>
@@ -67,9 +69,10 @@
                 to iterate through each review in reviews -->
                 {% for review in reviews %}
                 <div class="p-2 comments
-                {% if review.author == user %}
-                    faded
-                {% endif %}">
+                    {% if review.author == user %}
+
+                    {% endif %}">
+
                     <p class="font-weight-bold">
                         By {{ review.author }}
                         <span class="font-weight-normal">
@@ -91,8 +94,22 @@
                 <hr class="featurette-divider">
                 {% endif %}
             </div>
-        </div>
-    </div>
+            <!-- Creating New Comments -->
+            <div class="col-md-4 card mb-4 mt-3">
+                <div class="card-body">
+                    {% if user.is_authenticated %}
+                    <h3>Leave a review:</h3>
+                    <p>Posting as: {{ user.username }}</p>
+                    <form id="review_form" method="post" style="margin-top: 1.3em;">
+                        {{ review_form | crispy }}
+                        {% csrf_token %}
+                        <button id="submitButton" type="submit" class="btn btn-signup btn-lg">Submit</button>
+                    </form>
+                    {% else %}
+                    <p>Log in to leave a review</p>
+                    {% endif %}
+                </div>
+            </div>
 
 
 </body>

@@ -29,6 +29,10 @@ h6 {
     margin-top: 15px;
 }
 
+.col-md-4.card.mb-4.mt-3 {
+    width: 100%;
+}
+
 .col-12 {
     display: grid;
     justify-content: center;
