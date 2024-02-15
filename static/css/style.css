@@ -39,6 +39,13 @@ h6 {
     align-items: center;
 }
 
+.card-body > .p1 {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
 @media (min-width: 992px) {
     .container {
         max-width: 960px; /* Set a maximum width for screens larger than 992px */

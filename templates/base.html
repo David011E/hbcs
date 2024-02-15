@@ -53,19 +53,19 @@
                         <span class="thin">Book Now</span>
                     </a>
                     {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'account_logout' %}">Logout</a>
-                    </li>
+
+                    <a class="navbar-brand {% if request.path == logout_url %}active{% endif %}" aria-current="page"
+                        href="{% url 'account_logout' %}"><span class="thin">Logout</span></a>
+
                     {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'account_signup' %}">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'account_login' %}">Login</a>
-                    </li>
+
+                    <a class="navbar-brand {% if request.path == signup_url %}active{% endif %}" aria-current="page"
+                        href="{% url 'account_signup' %}"><span class="thin">Register</span></a>
+
+
+                    <a class="navbar-brand {% if request.path == login_url %}active{% endif %}" aria-current="page"
+                        href="{% url 'account_login' %}"><span class="thin">Login</span></a>
+
                     {% endif %}
                 </ul>
                 <span class="navbar-text text-muted">
