@@ -15,6 +15,47 @@ h6 {
     margin-top: 10px;
 }
 
+#submitButton {
+    margin-top: 15px;
+}
+
+.form-check {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px; /* Adjust as needed */
+    width: 27%;
+    margin-bottom: 10px; /* Add margin between each form-check */
+}
+
+.form-check-input {
+    display: none; /* Hide the default radio button */
+}
+
+#time-slots-fieldset.form-group {
+    height: 100%;
+    margin-top: 20px;
+}
+
+
+
+.form-check-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Set width and height to create oval shape */
+    height: 30px;
+    background-color: #ccc; /* Default background color */
+    border-radius: 12px; /* Make it oval */
+    text-align: center; /* Center the text */
+    line-height: 20px; /* Center the text vertically */
+    cursor: pointer; /* Change cursor to pointer */
+}
+
+.form-check-input:checked + .form-check-label {
+    border: 2px solid #000; /* Apply border when radio button is checked */
+}
+
 .col-md-8.card.mb-4.mt-3 {
     width: 100%; /* Set the width to 100% of the parent container */
     display: grid;
@@ -46,6 +87,11 @@ h6 {
     font-weight: bold;
 }
 
+.form-check {
+    display: inline-block;
+    margin-right: 10px; /* Adjust as needed */
+}
+
 @media (min-width: 992px) {
     .container {
         max-width: 960px; /* Set a maximum width for screens larger than 992px */
@@ -61,6 +107,18 @@ h6 {
 
     .row {
         margin-top: 40px;
+    }
+
+    .form-check {
+        width: 25%; /* Four buttons per row */
+    }
+
+    .fieldset#time-slots-fieldset.form-group {
+        margin-left: 15%;
+    }
+
+    #time-slots-fieldset.form-group {
+        margin-left: 15%;
     }
 }
 
@@ -135,6 +193,11 @@ h6 {
     .featurette-divider {
         margin: 20px 0;
     }
+
+    .form-check-label{
+        width: 105px;
+    }
+    
 }
 
 
@@ -241,4 +304,14 @@ h6 {
 .featurette-divider {
     border-top: 3px solid #333; /* Change the color to your preferred color */
     margin: 20px 0; /* Adjust the margin for spacing */
+}
+
+@media (max-width: 360px) {
+    #time-slots-fieldset.form-group {
+        margin-right: 25px;
+    }
+
+    .form-check-label {
+        width: 75px;
+    }
 }

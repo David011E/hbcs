@@ -13,7 +13,7 @@
                 <form id="booking_form" method="post">
                     {% csrf_token %}
                     {{ booking_form.date|as_crispy_field }}
-                    <fieldset class="form-group">
+                    <fieldset class="form-group" id="time-slots-fieldset">
                         {% for time_value, time_label in booking_form.fields.time.choices %}
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="time" id="time_{{ forloop.counter }}"
