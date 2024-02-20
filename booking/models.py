@@ -9,9 +9,19 @@ class Booking(models.Model):
         (2, 'Canceled'),
     ]
 
+    TIME_SLOTS = [
+        ('9:00', '9:00 AM'),
+        ('10:00', '10:00 AM'),
+        ('11:00', '11:00 AM'),
+        ('12:00', '12:00 PM'),
+        ('13:00', '13:00 PM'),
+        ('14:00', '14:00 PM'),
+        # Add more time slots as needed
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # Assuming you have a User model
     date = models.DateField()
-    time = models.TimeField()
+    time = models.CharField(max_length=5, choices=TIME_SLOTS)
     status = models.IntegerField(choices=STATUS_CHOICES, default=0)
 
     def __str__(self):
