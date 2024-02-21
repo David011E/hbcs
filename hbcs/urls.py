@@ -24,4 +24,5 @@ urlpatterns = [
     path("", include("home.urls"), name='home-urls'),
     path("booking/", include("booking.urls"), name='booking-urls'),  
     path("about/", include("about.urls"), name='about-urls'),  # Add a trailing slash
+    path("user_profile/", include("userprofile.urls"), name='user_profile-urls'),
 ]
