@@ -52,7 +52,7 @@ class ReviewViews(generic.ListView):
                 )
 
                 # Redirect to the same page after successful form submission
-                return redirect('about')
+                return redirect('user_profile')
 
         # If the request is not a POST, return the rendered template
         return self.render_to_response(self.get_context_data())
