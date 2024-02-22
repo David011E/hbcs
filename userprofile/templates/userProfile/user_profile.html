@@ -31,17 +31,26 @@
 
 <script>
     function toggleEdit(reviewId) {
-    var editForm = document.getElementById('edit-form-' + reviewId);
-    var editButton = document.querySelector('#review-' + reviewId + ' .btn-edit'); // Select the edit button within the review card
+        var editForm = document.getElementById('edit-form-' + reviewId);
+        var editButton = document.querySelector('#review-' + reviewId + ' .btn-edit'); // Select the edit button within the review card
 
-    if (editForm.style.display === 'none') {
-        editForm.style.display = '';
-        editButton.style.display = 'none'; // Hide the edit button when the form is displayed
-    } else {
-        editForm.style.display = 'none';
-        editButton.style.display = ''; // Show the edit button when the form is hidden
+        if (editForm.style.display === 'none') {
+            editForm.style.display = '';
+            editButton.style.display = 'none'; // Hide the edit button when the form is displayed
+        } else {
+            editForm.style.display = 'none';
+            editButton.style.display = ''; // Show the edit button when the form is hidden
+        }
     }
-}
+
+    function cancelEdit(reviewId) {
+        // Simply toggle the edit form to hide it
+        toggleEdit(reviewId);
+
+        // Show the edit button again
+        var editButton = document.querySelector('#review-' + reviewId + ' .btn-edit');
+        editButton.style.display = '';
+    }
 
 
     function saveEdit(reviewId) {
@@ -57,16 +66,16 @@
             },
             body: JSON.stringify({ content: content })
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                document.getElementById('review-content-text-' + reviewId).innerText = content;
-                toggleEdit(reviewId);
-                window.location.reload(); // Reload the page
-            } else {
-                alert('Error updating review.');
-            }
-        });
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('review-content-text-' + reviewId).innerText = content;
+                    toggleEdit(reviewId);
+                    window.location.reload(); // Reload the page
+                } else {
+                    alert('Error updating review.');
+                }
+            });
     }
 
 </script>
