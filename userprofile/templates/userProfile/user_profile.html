@@ -1,24 +1,74 @@
 {% extends "base.html" %}
-
 {% load static %}
 
 {% block content %}
-
 <!-- index.html content starts here -->
-<div class="container container-fluid  content-main-container">
+<div class="container container-fluid content-main-container">
     <div class="container-fluid">
         <div class="row">
-            {% for review in reviews %}
-            <div class="review-card">
-                <h2>Review by {{ review.author }}</h2>
-                <p>{{ review.safe_content }}</p> <!-- Displays safe HTML content -->
-                <small>Created on: {{ review.created_on }}</small>
-            </div>
-            {% endfor %}
-            
+            <form method="post"> <!-- Form start -->
+                {% csrf_token %} <!-- CSRF token input field -->
+                {% for review in reviews %}
+                <div class="review-card" id="review-{{ review.id }}">
+                    <div id="review-content-{{ review.id }}">
+                        <h2>Review by {{ review.author }}</h2>
+                        <p id="review-content-text-{{ review.id }}">{{ review.content }}</p>
+                        <small>Created on: {{ review.created_on }}</small>
+                        <button type="button" class="btn btn-edit" onclick="toggleEdit({{ review.id }})">Edit</button>
+                    </div>
+                    <div id="edit-form-{{ review.id }}" style="display:none;">
+                        <textarea id="edit-content-{{ review.id }}" rows="4" cols="50">{{ review.content }}</textarea>
+                        <br> <!-- Add a line break for spacing -->
+                        <button type="button" class="btn btn-success" onclick="saveEdit({{ review.id }})">Save</button>
+                        <button type="button" class="btn btn-danger" onclick="cancelEdit({{ review.id }})">Cancel</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </form> <!-- Form end -->
         </div>
     </div>
 </div>
 
+<script>
+    function toggleEdit(reviewId) {
+    var editForm = document.getElementById('edit-form-' + reviewId);
+    var editButton = document.querySelector('#review-' + reviewId + ' .btn-edit'); // Select the edit button within the review card
+
+    if (editForm.style.display === 'none') {
+        editForm.style.display = '';
+        editButton.style.display = 'none'; // Hide the edit button when the form is displayed
+    } else {
+        editForm.style.display = 'none';
+        editButton.style.display = ''; // Show the edit button when the form is hidden
+    }
+}
+
+
+    function saveEdit(reviewId) {
+        var textarea = document.getElementById('edit-content-' + reviewId);
+        var content = textarea.value;
+        var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        fetch(`/user_profile/edit_review/${reviewId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
+            },
+            body: JSON.stringify({ content: content })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('review-content-text-' + reviewId).innerText = content;
+                toggleEdit(reviewId);
+                window.location.reload(); // Reload the page
+            } else {
+                alert('Error updating review.');
+            }
+        });
+    }
+
+</script>
 <!-- index.html content ends here -->
 {% endblock %}
