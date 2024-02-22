@@ -19,8 +19,9 @@ class ReviewViews(generic.ListView):
         # Get all reviews and order them by created_on
         context['reviews'] = Reviews.objects.all().order_by("-created_on")
 
-        # Get the count of all reviews
-        context['review_count'] = Reviews.objects.count()
+        # Get the latest 5 reviews and order them by created_on
+        latest_reviews = Reviews.objects.all().order_by("-created_on")[:6]
+        context['reviews'] = latest_reviews
 
         # Add the JSON data to the context
         json_file_path = os.path.join(settings.BASE_DIR, 'data', 'company.json')
