@@ -10,7 +10,7 @@ class Reviews(models.Model):
     excerpt = models.TextField(blank=True)
 
     class Meta:
-        ordering = ["created_on"]
+        ordering = ["-created_on"]
 
     def safe_content(self):
         return mark_safe(self.content)
