@@ -19,7 +19,9 @@ h6 {
     margin-top: 15px;
 }
 
-.btn-edit {
+.btn-edit,
+.btn-danger,
+.btn-success {
     margin-top: 10px;
 }
 

@@ -17,6 +17,9 @@ def user_profile(request):
 
 
 def review_edit(request, content_id):
+    """
+    view to edit Review
+    """
     review = get_object_or_404(Reviews, pk=content_id, author=request.user)
 
     if request.method == "POST":
@@ -31,3 +34,19 @@ def review_edit(request, content_id):
         
         # If the request is not POST, redirect to the user profile page
     return redirect('user_profile')
+
+def delete_review(request, content_id):
+    """
+    view to delete Review
+    """
+    review = get_object_or_404(Reviews, pk=content_id, author=request.user)
+
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            review.content = data.get('content', '')
+            review.delete()
+            messages.add_message(request, messages.SUCCESS, 'Review successfully deleted.')
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
