@@ -37,6 +37,13 @@ h6 {
     align-items: center;
 }
 
+.no-r-b {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
 .review-card textarea {
     margin-top: 10px;
     width: 100%; /* Example styling: make the textarea full width */

@@ -1,6 +1,9 @@
+let isPageRefreshed = false;
+
 document.addEventListener('DOMContentLoaded', function() {
     addEventListenersToButtons();
     addEventListenersToDateInput();
+    addEventListenersToCancelButtons(); // Added event listeners to cancel buttons
 });
 
 function addEventListenersToButtons() {
@@ -20,19 +23,19 @@ function addEventListenersToButtons() {
         });
     });
 
-    // Add event listeners for cancel buttons
-    document.querySelectorAll('.btn-cancel').forEach(button => {
-        button.addEventListener('click', function() {
-            var reviewId = this.getAttribute('data-review-id');
-            cancelEdit(reviewId);
-        });
-    });
-
     // Add event listeners for delete buttons
     document.querySelectorAll('.btn-delete').forEach(button => {
         button.addEventListener('click', function() {
             var reviewId = this.getAttribute('data-review-id');
             deleteReview(reviewId);
+        });
+    });
+
+    // Add event listeners for cancel review buttons
+    document.querySelectorAll('.btn-cancel-review').forEach(button => {
+        button.addEventListener('click', function() {
+            var reviewId = this.getAttribute('data-review-id');
+            cancelEdit(reviewId);
         });
     });
 }
@@ -69,6 +72,7 @@ function saveEdit(reviewId) {
         if (data.success) {
             document.getElementById('review-content-text-' + reviewId).innerText = content;
             toggleEdit(reviewId);
+            
             // Optionally, you can update the content without reloading the page
         } else {
             alert('Error updating review.');
@@ -101,13 +105,8 @@ function deleteReview(reviewId) {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    document.getElementById('review-' + reviewId).remove();
-                    // Optionally, display a success message here
-                    Swal.fire({
-                        title: "Deleted!",
-                        text: "Your review has been deleted.",
-                        icon: "success"
-                    });
+                        // Refresh the page after displaying the success message
+                        location.reload();
                 } else {
                     // Handle deletion failure, if needed
                     Swal.fire({
@@ -129,6 +128,9 @@ function deleteReview(reviewId) {
         }
     });
 }
+
+
+
 
 function addEventListenersToDateInput() {
     const dateInput = document.getElementById('id_date');
@@ -164,4 +166,74 @@ function fetchAvailableTimeSlots(date) {
             });
         })
         .catch(error => console.error('Error fetching available time slots:', error));
+}
+
+function addEventListenersToCancelButtons() {
+    // Add event listeners for cancel booking buttons
+    document.querySelectorAll('.btn-cancel-booking').forEach(button => {
+        button.addEventListener('click', function() {
+            var bookingId = this.getAttribute('data-booking-id');
+            cancelBooking(bookingId);
+        });
+    });
+}
+
+function cancelBooking(bookingId) {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, cancel it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If user confirms cancellation, proceed with the cancellation request
+            var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            fetch(`/user_profile/cancel_booking/${bookingId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('booking-' + bookingId).remove();
+                    if (!isPageRefreshed) {
+                        isPageRefreshed = true;
+                        // Optionally, display a success message here
+                        Swal.fire({
+                            title: "Canceled!",
+                            text: "Your booking has been canceled.",
+                            icon: "success"
+                        }).then(() => {
+                            // Refresh the page
+                            location.reload();
+                        });
+                    }
+                } else {
+                    // Handle cancellation failure, if needed
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Failed to cancel booking.",
+                        icon: "error"
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle cancellation failure, if needed
+                Swal.fire({
+                    title: "Error!",
+                    text: "Failed to cancel booking.",
+                    icon: "error"
+                });
+            });
+        }
+    });
 }

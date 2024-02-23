@@ -8,21 +8,32 @@
     <div class="container-fluid">
         <div class="row">
             <h1 class="headers">You're Bookings</h1>
-            <form method="post">
+            <form method="post"> <!-- Form start -->
                 {% csrf_token %} <!-- CSRF token input field -->
+                {% if bookings %}
                 {% for booking in bookings %}
-                <div class="review-card" id="review-{{ booking.id }}">
+    
+                {% if booking.get_status_display == 'Booked' %}
+                <div class="review-card" id="booking-{{ booking.id }}">
                     <h2>Bookings for {{ booking.user }}</h2>
-                    <p id="review-content-text-{{ booking.id }}">Date: {{ booking.date }}</p>
-                    <p id="review-content-text-{{ booking.id }}">Time: {{ booking.get_time_display }}</p>
-                    <p id="review-content-text-{{ booking.id }}">Status: {{ booking.get_status_display }}</p>
+                    <p id="booking-content-text-{{ booking.id }}">Date: {{ booking.date }}</p>
+                    <p id="booking-content-time-{{ booking.id }}">Time: {{ booking.get_time_display }}</p>
+                    <p id="booking-content-status-{{ booking.id }}">Status: {{ booking.get_status_display }}</p>
+                    <button type="button" class="btn btn-danger btn-cancel-booking" data-booking-id="{{ booking.id }}">Cancel</button>
                 </div>
+                {% endif %}
                 {% endfor %}
+                {% else %}
+                <div class="review-card">
+                    <p class="no-r-b">You don't have any bookings.</p>
+                </div>
+                {% endif %}
             </form>
             <br> <!-- Add a line break for spacing -->
             <h1 class="headers">You're Reviews</h1>
             <form method="post"> <!-- Form start -->
                 {% csrf_token %} <!-- CSRF token input field -->
+                {% if reviews %}
                 {% for review in reviews %}
                 <div class="review-card" id="review-{{ review.id }}">
                     <div id="review-content-{{ review.id }}">
@@ -30,17 +41,23 @@
                         <p id="review-content-text-{{ review.id }}">{{ review.content }}</p>
                         <small>Created on: {{ review.created_on }}</small>
                         <button type="button" class="btn btn-edit" data-review-id="{{ review.id }}">Edit</button>
-                        <button type="button" class="btn btn-danger btn-delete" data-review-id="{{ review.id }}">Delete</button>
+                        <button type="button" class="btn btn-danger btn-delete"
+                            data-review-id="{{ review.id }}">Delete</button>
                     </div>
                     <div id="edit-form-{{ review.id }}" style="display:none;">
                         <textarea id="edit-content-{{ review.id }}" rows="4" cols="50">{{ review.content }}</textarea>
                         <br> <!-- Add a line break for spacing -->
-                        <button type="button" class="btn btn-success btn-save" data-review-id="{{ review.id }}">Save</button>
-                        <button type="button" class="btn btn-danger btn-cancel" data-review-id="{{ review.id }}">Cancel</button>
+                        <button type="button" class="btn btn-success btn-save"
+                            data-review-id="{{ review.id }}">Save</button>
+                            <button type="button" class="btn btn-danger btn-cancel-review" data-review-id="{{ review.id }}">Cancel</button>
                     </div>
                 </div>
-                
                 {% endfor %}
+                {% else %}
+                <div class="review-card" id="review-{{ review.id }}">
+                    <p class="no-r-b">You don't have any reviews.</p>
+                </div>
+                {% endif %}
             </form> <!-- Form end -->
         </div>
     </div>
