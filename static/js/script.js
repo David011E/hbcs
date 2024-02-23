@@ -72,13 +72,23 @@ function saveEdit(reviewId) {
         if (data.success) {
             document.getElementById('review-content-text-' + reviewId).innerText = content;
             toggleEdit(reviewId);
-            
-            // Optionally, you can update the content without reloading the page
+            Swal.fire({
+                title: "Updated!",
+                text: "Your review has been updated.",
+                icon: "success"
+            }).then(() => {
+                // Refresh the page
+            });
         } else {
             alert('Error updating review.');
         }
+    })
+    .catch(error => {
+        console.error('Error updating review:', error);
+        alert('Error updating review.');
     });
 }
+
 
 function deleteReview(reviewId) {
     Swal.fire({
