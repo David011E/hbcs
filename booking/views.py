@@ -32,7 +32,7 @@ class BookingView(View):
             booking.status = 1  # Assuming all bookings are immediately set to 'Booked' upon form submission
             booking.save()
             messages.add_message(request, messages.SUCCESS, 'Booking Success')
-            return redirect('home')
+            return redirect('user_profile')
         else:
             return render(request, self.template_name, {'booking_form': booking_form})
 
