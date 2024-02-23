@@ -31,6 +31,12 @@ h6 {
     border-color: #dc3545 !important;
 }
 
+.headers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .review-card textarea {
     margin-top: 10px;
     width: 100%; /* Example styling: make the textarea full width */

@@ -7,6 +7,20 @@
 <div class="container container-fluid content-main-container">
     <div class="container-fluid">
         <div class="row">
+            <h1 class="headers">You're Bookings</h1>
+            <form method="post">
+                {% csrf_token %} <!-- CSRF token input field -->
+                {% for booking in bookings %}
+                <div class="review-card" id="review-{{ booking.id }}">
+                    <h2>Bookings for {{ booking.user }}</h2>
+                    <p id="review-content-text-{{ booking.id }}">Date: {{ booking.date }}</p>
+                    <p id="review-content-text-{{ booking.id }}">Time: {{ booking.get_time_display }}</p>
+                    <p id="review-content-text-{{ booking.id }}">Status: {{ booking.get_status_display }}</p>
+                </div>
+                {% endfor %}
+            </form>
+            <br> <!-- Add a line break for spacing -->
+            <h1 class="headers">You're Reviews</h1>
             <form method="post"> <!-- Form start -->
                 {% csrf_token %} <!-- CSRF token input field -->
                 {% for review in reviews %}
