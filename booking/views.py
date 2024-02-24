@@ -4,6 +4,7 @@ from .models import Booking
 from .forms import BookingForm
 from django.contrib import messages
 from datetime import datetime
+from django.utils import timezone
 from django.http import JsonResponse
 
 class BookingView(View):
@@ -40,9 +41,18 @@ class BookingView(View):
 def get_available_time_slots(request):
     date = request.GET.get('date', None)
     if date:
-        date_obj = datetime.strptime(date, '%Y-%m-%d').date()
-        booked_time_slots = Booking.objects.filter(date=date_obj).values_list('time', flat=True)
-        all_time_slots = Booking.TIME_SLOTS
-        time_slots_info = [{'time': slot[0], 'booked': slot[0] in booked_time_slots} for slot in all_time_slots]
-        return JsonResponse({'time_slots': time_slots_info})
+        try:
+            date_obj = datetime.strptime(date, '%Y-%m-%d').date()
+            current_datetime = timezone.now()
+            if date_obj == current_datetime.date():  # If the date is today, filter out past time slots
+                current_time = current_datetime.time()
+                all_time_slots = Booking.TIME_SLOTS
+                time_slots_info = [{'time': slot[0], 'booked': False} if datetime.strptime(date + ' ' + slot[0], '%Y-%m-%d %H:%M').time() >= current_time else {'time': slot[0], 'booked': True} for slot in all_time_slots]
+            else:
+                booked_time_slots = Booking.objects.filter(date=date_obj).values_list('time', flat=True)
+                all_time_slots = Booking.TIME_SLOTS
+                time_slots_info = [{'time': slot[0], 'booked': slot[0] in booked_time_slots} for slot in all_time_slots]
+            return JsonResponse({'time_slots': time_slots_info})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
     return JsonResponse({'error': 'No date provided'}, status=400)
