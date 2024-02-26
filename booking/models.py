@@ -16,6 +16,9 @@ class Booking(models.Model):
         ('12:00', '12:00 PM'),
         ('13:00', '13:00 PM'),
         ('14:00', '14:00 PM'),
+        ('15:00', '15:00 PM'),
+        ('16:00', '16:00 PM'),
+        ('17:00', '17:00 PM'),
         # Add more time slots as needed
     ]
 
