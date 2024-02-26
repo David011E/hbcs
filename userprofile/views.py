@@ -35,7 +35,7 @@ def review_edit(request, content_id):
     """
     review = get_object_or_404(Reviews, pk=content_id, author=request.user)
 
-    if request.method == "POST":
+    if request.method == "POST" and review.author == request.user:
         try:
             data = json.loads(request.body)
             review.content = data.get('content', '')
@@ -48,13 +48,14 @@ def review_edit(request, content_id):
         # If the request is not POST, redirect to the user profile page
     return redirect('user_profile')
 
+
 def delete_review(request, content_id):
     """
     view to delete Review
     """
     review = get_object_or_404(Reviews, pk=content_id, author=request.user)
 
-    if request.method == "POST":
+    if request.method == "POST" and review.author == request.user:
         try:
             data = json.loads(request.body)
             review.content = data.get('content', '')
@@ -63,6 +64,7 @@ def delete_review(request, content_id):
             return JsonResponse({'success': True})
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)})
+
         
 
 def cancel_booking(request, booking_id):
@@ -71,7 +73,7 @@ def cancel_booking(request, booking_id):
     """
 
     booking = get_object_or_404(Booking, pk=booking_id, user=request.user)
-    if request.method == "POST":
+    if request.method == "POST" and booking.user == request.user:
         try:
             booking.status = booking.status  
             # Save the changes to the booking object
