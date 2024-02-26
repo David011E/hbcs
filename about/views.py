@@ -36,13 +36,13 @@ class ReviewViews(generic.ListView):
         return context
 
     def post(self, request):
-        if request.method == "POST" and review.author == request.author:
+        if request.method == "POST":
             review_form = ReviewForm(data=request.POST)
-            if review_form.is_valid() and review.author == request.author:
+            if review_form.is_valid():
                 
                 # Save the form data to the Review model
                 review = review_form.save(commit=False)
-                review.author = request.user
+                review.author = request.user # Assign the logged-in user as the author
                 review.content = review.content
                 review.save()
 

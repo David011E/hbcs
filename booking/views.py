@@ -27,12 +27,12 @@ class BookingView(View):
     def post(self, request):
         time_slots = Booking.TIME_SLOTS  # Assuming you have defined TIME_SLOTS in your Booking model
         booking_form = BookingForm(data=request.POST, time_slots=time_slots)
-        if booking_form.is_valid() and booking.user == request.user:
+        if booking_form.is_valid():
             booking = booking_form.save(commit=False)
-            booking.user = request.user
+            booking.user = request.user  # Assuming request.user exists and represents the logged-in user
             booking.status = 1  # Assuming all bookings are immediately set to 'Booked' upon form submission
             booking.save()
-            messages.add_message(request, messages.SUCCESS, 'Booking Success')
+            messages.success(request, 'Booking Success')
             return redirect('user_profile')
         else:
             return render(request, self.template_name, {'booking_form': booking_form})
