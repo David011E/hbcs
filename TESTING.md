@@ -2,7 +2,7 @@
 
 ![HBCS BARBER's](static/images/f-homepage.png)
 
-Link to live site - [https://hbcs-a03727698283.herokuapp.com/](https://hbcs-a03727698283.herokuapp.com/)
+Link to live site - [HBCS BARBER's](https://hbcs-a03727698283.herokuapp.com/)
 
 ---
 
@@ -23,15 +23,19 @@ The page has been inspected using google chrome developer tools & Firefox inspec
 
 ---
 
-## Validation Testing
+## AUTOMATED TESTING
 
-### HTML & CSS
 
-HTML & CSS testing was completed using [W3C Validator](https://validator.w3.org/)
+### W3C Validator
 
-When validating the code, I had the error shown below. I got these errors because I used this as an ID used to style my css so I didn't get any expression expected errors either than that I didn't get any more errors.
+[W3C](https://validator.w3.org/) was used to validate the HTML on all pages of the website. It was also used to validate the CSS.
 
-![HTML Validation - Descendant Error](static/images/vt-error.png)
+* [Index Page W3C HTML Validation](https://validator.w3.org/nu/#textarea) - Pass
+
+* [style.css CSS Validation](https://jigsaw.w3.org/css-validator/validator) - Pass
+
+* [script.js JS Validation](https://jshint.com/) - Pass
+
 
 ## Python Testing
 
