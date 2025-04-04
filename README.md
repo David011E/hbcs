@@ -11,7 +11,7 @@ This is my Online booking system for user to interact by leaving reviews or make
 
 It is a fullstack booking system site that allows users to read reviews make a booking , create an account and review about their experiences.
 
-Link to live site - [https://hbcs-a03727698283.herokuapp.com/](https://hbcs-a03727698283.herokuapp.com/)
+Link to deployed site can be found. Due to Changing Heroku account this link is available at the moment
 
 ---
 
